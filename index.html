@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAWPIKING — Collection Officielle</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="Config/config.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-display { font-family: 'Bebas Neue', sans-serif; }
+    ::selection { background: #DC2626; color: white; }
+    .stripe-pattern {
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(220, 38, 38, 0.03) 10px,
+        rgba(220, 38, 38, 0.03) 20px
+      );
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide-in { animation: slideIn 0.5s ease-out forwards; }
+    .product-card:hover .product-img { transform: scale(1.05); }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .size-btn.active { background: #DC2626; color: white; border-color: #DC2626; }
+    .cart-open { transform: translateX(0) !important; }
+    .modal-open { display: flex !important; }
+  </style>
+</head>
+<body class="bg-law-cream text-gray-900 antialiased">
+
+  <!-- NAVIGATION -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300 border-b border-red-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 bg-law-red rounded-sm flex items-center justify-center group-hover:bg-law-green transition-colors duration-300">
+          <span class="text-white font-display text-lg tracking-tighter">L</span>
+        </div>
+        <span class="font-display text-2xl tracking-widest text-gray-900 group-hover:text-law-red transition-colors">LAWPIKING</span>
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#hero" class="text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-law-red transition-colors">Accueil</a>
+        <a href="#collection" class="text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-law-red transition-colors">Collection</a>
+        <a href="#about" class="text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-law-red transition-colors">La Marque</a>
+        <a href="#contact" class="text-xs font-semibold tracking-widest uppercase text-gray-500 hover:text-law-red transition-colors">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button onclick="toggleCart()" class="relative p-2 hover:bg-red-50 rounded-full transition-colors group">
+          <iconify-icon icon="lucide:shopping-bag" width="22" class="text-gray-700 group-hover:text-law-red transition-colors"></iconify-icon>
+          <span id="cart-count" class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-law-red text-white text-[10px] font-bold rounded-full flex items-center justify-center hidden">0</span>
+        </button>
+        <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-red-50 rounded-full">
+          <iconify-icon icon="lucide:menu" width="22"></iconify-icon>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-red-100">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#hero" onclick="toggleMobileMenu()" class="text-sm font-medium py-2 text-gray-700 hover:text-law-red">Accueil</a>
+        <a href="#collection" onclick="toggleMobileMenu()" class="text-sm font-medium py-2 text-gray-700 hover:text-law-red">Collection</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-sm font-medium py-2 text-gray-700 hover:text-law-red">La Marque</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-sm font-medium py-2 text-gray-700 hover:text-law-red">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16">
+    <div class="absolute inset-0 stripe-pattern"></div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-32 left-10 w-20 h-20 bg-law-red/10 rounded-full blur-2xl float-anim"></div>
+    <div class="absolute bottom-20 right-20 w-32 h-32 bg-law-green/10 rounded-full blur-2xl float-anim" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/4 w-16 h-16 border-2 border-law-red/20 rounded-full float-anim" style="animation-delay: 2s;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid lg:grid-cols-2 gap-12 items-center">
+      <div class="slide-in">
+        <div class="inline-flex items-center gap-2 bg-law-green/10 border border-law-green/30 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-law-green rounded-full animate-pulse"></span>
+          <span class="text-[11px] font-bold tracking-[0.2em] uppercase text-law-green-dark">Nouvelle Collection 2026</span> 
+        </div>
+        
+        <h1 class="font-display text-6xl sm:text-7xl lg:text-8xl leading-none tracking-tight mb-2">
+          <span class="text-law-red">LAW</span><span class="text-law-green">PIKING</span>
+        </h1>
+        
+        <p class="text-xl sm:text-2xl font-light text-gray-500 mt-4 mb-8 max-w-lg">
+          9 Couleurs. Un seul état d'esprit.<br>
+          <span class="font-semibold text-gray-800">Le style qui te définit.</span>
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-12">
+          <a href="#collection" class="group inline-flex items-center justify-center gap-3 bg-law-red text-white font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-none hover:bg-law-red-dark transition-all duration-300 shadow-lg shadow-red-200">
+            Découvrir la Collection
+            <iconify-icon icon="lucide:arrow-down" width="18" class="group-hover:translate-y-1 transition-transform"></iconify-icon>
+          </a>
+          <a href="#about" class="group inline-flex items-center justify-center gap-3 bg-white text-gray-900 font-bold text-sm tracking-widest uppercase px-8 py-4 border-2 border-gray-200 hover:border-law-green hover:text-law-green transition-all duration-300">
+            Notre Histoire
+          </a>
+        </div>
+
+        <div class="flex items-center gap-8 pt-8 border-t border-gray-200">
+          <div>
+            <p class="font-display text-4xl text-law-red">9</p>
+            <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mt-1">Couleurs</p>
+          </div>
+          <div class="w-px h-12 bg-gray-200"></div>
+          <div>
+            <p class="font-display text-4xl text-law-green">180g</p>
+            <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mt-1">Coton Premium</p>
+          </div>
+          <div class="w-px h-12 bg-gray-200"></div>
+          <div>
+            <p class="font-display text-4xl text-law-red">SN</p>
+            <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mt-1">Fabriqué</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Image Grid -->
+      <div class="relative slide-in hidden lg:block" style="animation-delay: 0.2s;">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-rotate-1">
+              <img src="images/T-shirt_vert.jpeg" alt="T-shirt Vert menthe" class="w-full h-64 object-contain p-6 bg-gradient-to-br from-emerald-50 to-teal-50">
+            </div>
+            <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:rotate-1">
+              <img src="images/T-shirt_gris.jpeg" alt="T-shirt Gris" class="w-full h-48 object-contain p-4 bg-gradient-to-br from-gray-100 to-gray-200">
+            </div>
+            <!-- <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-rotate-1">
+              <img src="images/T-shirt_maron.jpeg" alt="T-shirt Marron" class="w-full h-48 object-contain p-4 bg-gradient-to-br from-amber-100 to-orange-200">
+            </div> -->
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:rotate-1">
+              <img src="images/T-shirt_noir.jpeg" alt="T-shirt Noir" class="w-full h-56 object-contain p-6 bg-gradient-to-br from-gray-800 to-gray-900">
+            </div>
+            <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:-rotate-1">
+              <img src="images/T-shirt_rouge.jpeg" alt="T-shirt Rouge" class="w-full h-52 object-contain p-6 bg-gradient-to-br from-red-50 to-red-100">
+            </div>
+            <!-- <div class="bg-gray-100 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 transform hover:rotate-1">
+              <img src="images/T-shirt_orange.jpeg" alt="T-shirt Orange" class="w-full h-48 object-contain p-4 bg-gradient-to-br from-orange-100 to-amber-200">
+            </div> -->
+          </div>
+        </div>
+        <!-- <div class="absolute -bottom-4 -left-4 bg-law-green text-white px-6 py-3 shadow-xl">
+          <p class="font-display text-2xl tracking-wider">DISPONIBLE MAINTENANT</p>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR STRIP BANNER -->
+  <div class="bg-law-red py-3 overflow-hidden relative">
+    <div class="flex whitespace-nowrap animate-marquee">
+      <div class="flex items-center gap-8 px-4">
+        <span class="text-white font-display text-xl tracking-wider">✦ MENTHE ✦ VERT FORÊT ✦ GRIS ✦ BLEU ROYAL ✦ NOIR ✦ ROUGE ✦ MARRON ✦ ORANGE ✦ JAUNE ✦</span>
+        <span class="text-white font-display text-xl tracking-wider">✦ MENTHE ✦ VERT FORÊT ✦ GRIS ✦ BLEU ROYAL ✦ NOIR ✦ ROUGE ✦ MARRON ✦ ORANGE ✦ JAUNE ✦</span>
+        <span class="text-white font-display text-xl tracking-wider">✦ MENTHE ✦ VERT FORÊT ✦ GRIS ✦ BLEU ROYAL ✦ NOIR ✦ ROUGE ✦ MARRON ✦ ORANGE ✦ JAUNE ✦</span>
+      </div>
+    </div>
+    <style>
+      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+      .animate-marquee { animation: marquee 15s linear infinite; }
+    </style>
+  </div>
+
+  <!-- PRODUCTS SECTION -->
+  <section id="collection" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div>
+          <p class="text-[11px] font-bold tracking-[0.3em] uppercase text-law-red mb-3">01 — Collection Complète</p>
+          <h2 class="font-display text-5xl sm:text-6xl tracking-tight text-gray-900">Les 9 Couleurs</h2>
+          <p class="text-gray-500 mt-3 max-w-md">Chaque t-shirt est pensé pour s'adapter à ton style, coupe regular fit, finitions premium.</p>
+        </div>
+        
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterProducts('all')" class="filter-btn active text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 bg-gray-900 text-white transition-all duration-300" data-filter="all">Tous</button>
+          <button onclick="filterProducts('pastel')" class="filter-btn text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 bg-gray-100 text-gray-600 hover:bg-law-red hover:text-white transition-all duration-300" data-filter="pastel">Pastel</button>
+          <button onclick="filterProducts('dark')" class="filter-btn text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 bg-gray-100 text-gray-600 hover:bg-law-red hover:text-white transition-all duration-300" data-filter="dark">Sombre</button>
+          <button onclick="filterProducts('vibrant')" class="filter-btn text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 bg-gray-100 text-gray-600 hover:bg-law-red hover:text-white transition-all duration-300" data-filter="vibrant">Vivant</button>
+        </div>
+      </div>
+
+      <label for="product-search" class="mb-8 block w-full md:max-w-xl">
+        <span class="sr-only">Rechercher un T-shirt</span>
+        <span class="relative block">
+          <iconify-icon icon="lucide:search" width="20" class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></iconify-icon>
+          <input id="product-search" type="search" oninput="searchProducts(this.value)" placeholder="Rechercher un T-shirt..." autocomplete="off" class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-12 pr-4 text-sm shadow-sm outline-none transition focus:border-law-red focus:ring-2 focus:ring-red-100">
+        </span>
+      </label>
+
+      <!-- Products Grid -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Rendered by JS -->
+      </div>
+      <p id="no-products-found" role="status" class="hidden py-12 text-center text-gray-500">Aucun T-shirt trouvé pour cette recherche.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED BANNER -->
+  <section class="py-20 bg-law-green text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-[11px] font-bold tracking-[0.3em] uppercase text-white/70 mb-4">Pack Collector</p>
+          <h2 class="font-display text-5xl sm:text-6xl tracking-tight mb-6">LA COLLECTION<br>COMPLÈTE</h2>
+          <p class="text-white/80 text-lg mb-8 max-w-md">Prends les 9 couleurs d'un coup et sois prêt pour toutes les occasions.</p>
+          <div class="flex items-baseline gap-3 mb-8">
+            <span class="font-display text-6xl">108 000 F</span>
+          </div>
+          <button onclick="addBundleToCart()" class="inline-flex items-center gap-3 bg-white text-law-green font-bold text-sm tracking-widest uppercase px-10 py-5 hover:bg-gray-100 transition-all duration-300 shadow-xl">
+            Ajouter au panier
+            <iconify-icon icon="lucide:package" width="20"></iconify-icon>
+          </button>
+        </div>
+        <div class="relative">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur"><img src="images/T-shirt_vert.jpeg" alt="T-shirt Vert menthe" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur mt-4"><img src="images/T-shirt_vertFoncé.jpeg" alt="T-shirt Vert forêt" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur"><img src="images/T-shirt_gris.jpeg" alt="T-shirt Gris chiné" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur -mt-4"><img src="images/T-shirt_Bleu.jpeg" alt="T-shirt Bleu royal" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur"><img src="images/T-shirt_noir.jpeg" alt="T-shirt Noir" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur mt-4"><img src="images/T-shirt_rouge.jpeg" alt="T-shirt Rouge cardinal" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur"><img src="images/T-shirt_maron.jpeg" alt="T-shirt Marron" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur mt-4"><img src="images/T-shirt_orange.jpeg" alt="T-shirt Orange" class="w-full object-contain"></div>
+            <div class="bg-white/10 rounded-xl p-3 backdrop-blur"><img src="images/T-shirt_jaune.jpeg" alt="T-shirt Jaune" class="w-full object-contain"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / WHY US -->
+  <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 bg-law-cream">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-[11px] font-bold tracking-[0.3em] uppercase text-law-green mb-3">02 — Pourquoi Nous Choisir</p>
+        <h2 class="font-display text-5xl sm:text-6xl tracking-tight text-gray-900">La Différence LAWPIKING</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8"> 
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+          <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-law-red transition-colors duration-300">
+            <iconify-icon icon="lucide:shirt" width="28" class="text-law-red group-hover:text-white transition-colors"></iconify-icon>
+          </div>
+          <h3 class="font-display text-2xl tracking-wide mb-3">QUALITÉ PREMIUM</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Des T-shirts pensés pour allier confort, style et durabilité. Des matières sélectionnées avec soin pour vous accompagner au quotidien.</p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+          <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-law-green transition-colors duration-300">
+            <iconify-icon icon="lucide:palette" width="28" class="text-law-green group-hover:text-white transition-colors"></iconify-icon>
+          </div>
+          <h3 class="font-display text-2xl tracking-wide mb-3">COULEURS UNIQUES</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Du classique au plus audacieux, Lawpiking propose des couleurs pensées pour s'adapter à chaque style.</p>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+          <div class="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-gray-900 transition-colors duration-300">
+            <iconify-icon icon="lucide:heart-handshake" width="28" class="text-gray-700 group-hover:text-white transition-colors"></iconify-icon>
+          </div>
+          <h3 class="font-display text-2xl tracking-wide mb-3">UN ACHAT, UN GESTE POUR L'ÉDUCATION</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Chez <strong>Lawpiking</strong>, nos ventes contribuent chaque année à des dons de fournitures scolaires destinés aux élèves.
+                 Votre style peut aussi soutenir l'éducation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZE GUIDE -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-100">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-[11px] font-bold tracking-[0.3em] uppercase text-law-red mb-3">03 — Guide</p>
+        <h2 class="font-display text-4xl tracking-tight text-gray-900">Guide des Tailles</h2>
+        <p class="text-gray-500 mt-2 text-sm">Notre coupe est Regular Fit. Si tu es entre deux tailles, prends la taille au-dessus.</p>
+      </div>
+      
+      <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="py-4 px-6 text-left text-[11px] font-bold tracking-widest uppercase text-gray-500">Taille</th>
+              <th class="py-4 px-6 text-left text-[11px] font-bold tracking-widest uppercase text-gray-500">Poitrine (cm)</th>
+              <th class="py-4 px-6 text-left text-[11px] font-bold tracking-widest uppercase text-gray-500">Longueur (cm)</th>
+              <th class="py-4 px-6 text-left text-[11px] font-bold tracking-widest uppercase text-gray-500">Épaules (cm)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr class="hover:bg-red-50/30 transition-colors">
+              <td class="py-4 px-6 font-bold text-law-red">S</td><td class="py-4 px-6">96</td><td class="py-4 px-6">68</td><td class="py-4 px-6">44</td>
+            </tr>
+            <tr class="hover:bg-red-50/30 transition-colors">
+              <td class="py-4 px-6 font-bold text-law-red">M</td><td class="py-4 px-6">100</td><td class="py-4 px-6">71</td><td class="py-4 px-6">46</td>
+            </tr>
+            <tr class="hover:bg-red-50/30 transition-colors">
+              <td class="py-4 px-6 font-bold text-law-red">L</td><td class="py-4 px-6">104</td><td class="py-4 px-6">74</td><td class="py-4 px-6">48</td>
+            </tr>
+            <tr class="hover:bg-red-50/30 transition-colors">
+              <td class="py-4 px-6 font-bold text-law-red">XL</td><td class="py-4 px-6">112</td><td class="py-4 px-6">77</td><td class="py-4 px-6">52</td>
+            </tr>
+            <tr class="hover:bg-red-50/30 transition-colors">
+              <td class="py-4 px-6 font-bold text-law-red">XXL</td><td class="py-4 px-6">120</td><td class="py-4 px-6">80</td><td class="py-4 px-6">56</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14">
+        <p class="text-[11px] font-bold tracking-[0.3em] uppercase text-law-green mb-3">04 — Avis Clients</p>
+        <h2 class="font-display text-5xl tracking-tight text-gray-900">Ils Ont Choisi la Loi</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-law-red">
+          <div class="flex gap-1 mb-4">
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+          </div>
+          <p class="text-gray-600 text-sm mb-6 leading-relaxed">"Le vert menthe est une tuerie. Qualité au rendez-vous, je vais prendre les autres couleurs."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-bold text-law-red">Y</div>
+            <div>
+              <p class="font-bold text-sm">Youssef M.</p>
+              <p class="text-[10px] text-gray-400 uppercase tracking-wider">Acheté: Vert Menthe + Noir</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-law-green">
+          <div class="flex gap-1 mb-4">
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+          </div>
+          <p class="text-gray-600 text-sm mb-6 leading-relaxed">"Enfin une marque française qui assume son style. Le rouge est magnifique, très bon tissus."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-law-green">L</div>
+            <div>
+              <p class="font-bold text-sm">Léa D.</p>
+              <p class="text-[10px] text-gray-400 uppercase tracking-wider">Achetée: Rouge Cardinal</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-gray-900">
+          <div class="flex gap-1 mb-4">
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-yellow-400 fill-current"></iconify-icon>
+            <iconify-icon icon="lucide:star" width="16" class="text-gray-300"></iconify-icon>
+          </div>
+          <p class="text-gray-600 text-sm mb-6 leading-relaxed">"J'ai pris le pack complet, super idée. Tous mes potes veulent la même maintenant lol"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-900">K</div>
+            <div>
+              <p class="font-bold text-sm">Karim B.</p>
+              <p class="text-[10px] text-gray-400 uppercase tracking-wider">Achéte: Pack Complet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / CONTACT -->
+  <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Newsletter -->
+        <div class="bg-law-red text-white p-10 rounded-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="relative z-10">
+            <h3 class="font-display text-4xl tracking-wide mb-3">RESTE CONNECTÉ</h3>
+            <p class="text-white/80 mb-8 text-sm">Reçois les drops avant tout le monde. Promo de bienvenue -15% sur ta première commande.</p>
+            <form onsubmit="handleNewsletter(event)" class="flex flex-col gap-3">
+              <input type="email" required placeholder="ton@email.com" class="bg-white/10 border border-white/30 text-white placeholder-white/50 px-5 py-4 rounded-none focus:outline-none focus:border-white focus:bg-white/20 transition-all">
+              <button type="submit" class="bg-white text-law-red font-bold text-sm tracking-widest uppercase py-4 hover:bg-gray-100 transition-colors">S'inscrire</button>
+            </form>
+            <p id="newsletter-msg" class="text-white text-sm mt-4 hidden bg-white/20 p-3 rounded">Bienvenue dans la famille ! ✦</p>
+          </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="border-2 border-gray-200 p-10 rounded-2xl">
+          <h3 class="font-display text-4xl tracking-wide mb-3 text-gray-900">CONTACT</h3>
+          <p class="text-gray-500 mb-8 text-sm">Une question ? Besoin d'un conseil taille ? On répond sous 24h.</p>
+          
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center shrink-0">
+                <iconify-icon icon="lucide:mail" width="18" class="text-law-red"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Email</p>
+                <p class="text-sm font-medium">contact@lawpiking.fr</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center shrink-0">
+                <iconify-icon icon="lucide:message-circle" width="18" class="text-law-green"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Instagram DM</p>
+                <p class="text-sm font-medium">@lawpiking.official</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                <iconify-icon icon="lucide:clock" width="18" class="text-gray-600"></iconify-icon>
+              </div>
+              <div>
+                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Réponse</p>
+                <p class="text-sm font-medium">Sous 24h — Lun-Sam</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex gap-3 mt-8">
+            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
+              <iconify-icon icon="lucide:instagram" width="18"></iconify-icon>
+            </a>
+            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
+              <iconify-icon icon="lucide:twitter" width="18"></iconify-icon>
+            </a>
+            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
+              <iconify-icon icon="lucide:facebook" width="18"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-law-red rounded-sm flex items-center justify-center">
+              <span class="text-white font-display text-lg">L</span>
+            </div>
+            <span class="font-display text-2xl tracking-widest">LAWPIKING</span>
+          </div>
+          <p class="text-gray-400 text-sm"><br>Qualité. Style. Authenticité.</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Shop</p>
+          <div class="flex flex-col gap-2">
+            <a href="#collection" class="text-sm text-gray-400 hover:text-law-red transition-colors">Collection</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Guide Tailles</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Livraison</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Retours</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Marque</p>
+          <div class="flex flex-col gap-2">
+            <a href="#about" class="text-sm text-gray-400 hover:text-law-red transition-colors">Notre Histoire</a>
+            <!-- <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Durabilité</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Presse</a> -->
+            <a href="#contact" class="text-sm text-gray-400 hover:text-law-red transition-colors">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Légal</p>
+          <div class="flex flex-col gap-2">
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">CGV</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Mentions Légales</a>
+            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Politique Confidentialité</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-xs">© 2026 LAWPIKING. Tous droits réservés.</p>
+        <!-- <p class="text-gray-500 text-xs flex items-center gap-2">
+          Fabriqué avec <span class="text-law-red">♥</span> en France
+        </p> -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm" onclick="toggleCart()"></div>
+  <aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="font-display text-2xl tracking-wide text-gray-900">TON PANIER</h3>
+      <button onclick="toggleCart()" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+        <iconify-icon icon="lucide:x" width="20"></iconify-icon>
+      </button>
+    </div>
+    
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+      <div id="cart-empty" class="h-full flex flex-col items-center justify-center text-center">
+        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <iconify-icon icon="lucide:shopping-bag" width="32" class="text-gray-300"></iconify-icon>
+        </div>
+        <p class="text-gray-400 font-medium">Ton panier est vide</p>
+        <p class="text-gray-300 text-sm mt-1">Ajoute des pièces pour commencer</p>
+      </div>
+    </div>
+    
+    <div id="cart-footer" class="p-6 border-t border-gray-100 hidden">
+      <div class="space-y-3 mb-6">
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-500">Sous-total</span>
+          <span id="cart-subtotal" class="font-medium">0 F</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-500">Livraison</span>
+          <span class="text-law-green font-medium">Gratuite</span>
+        </div>
+        <div class="h-px bg-gray-100"></div>
+        <div class="flex justify-between">
+          <span class="font-bold text-lg">Total</span>
+          <span id="cart-total" class="font-display text-2xl text-law-red">0 F</span>
+        </div>
+      </div>
+      <button onclick="checkout()" class="w-full bg-law-red text-white font-bold text-sm tracking-widest uppercase py-4 hover:bg-law-red-dark transition-colors shadow-lg shadow-red-200">
+        Passer la commande
+      </button>
+      <p class="text-center text-[10px] text-gray-400 mt-4 tracking-wider uppercase">Livraison gratuite dès 50 000 F • Retour sous 30 jours</p>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT -->
+  <div id="checkout-modal" class="fixed inset-0 z-[80] hidden overflow-y-auto bg-black/60 p-3 backdrop-blur-sm sm:p-6" onclick="if (event.target === this) closeCheckout()">
+    <section class="relative mx-auto my-3 w-full max-w-2xl rounded-2xl bg-white shadow-2xl sm:my-8" aria-labelledby="checkout-title">
+      <div class="flex items-center justify-between border-b border-gray-100 p-5 sm:p-6">
+        <h2 id="checkout-title" class="font-display text-2xl tracking-wide text-gray-900 sm:text-3xl">FINALISER MA COMMANDE</h2>
+        <button type="button" onclick="closeCheckout()" aria-label="Fermer" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200">
+          <iconify-icon icon="lucide:x" width="20"></iconify-icon>
+        </button>
+      </div>
+
+      <div class="p-5 sm:p-8">
+        <p id="checkout-error" role="alert" class="mb-5 hidden rounded-lg bg-red-50 p-3 text-sm text-red-700"></p>
+
+        <form id="checkout-form" novalidate onsubmit="prepareOrder(event)" class="space-y-5">
+          <div>
+            <h3 class="mb-4 text-lg font-bold text-gray-900">Informations de livraison</h3>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block text-sm font-medium text-gray-700">
+                Nom complet <span class="text-law-red">*</span>
+                <input name="customer-name" type="text" autocomplete="name" required class="mt-1.5 w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:border-law-red focus:outline-none focus:ring-2 focus:ring-red-100">
+              </label>
+              <label class="block text-sm font-medium text-gray-700">
+                Numéro de téléphone <span class="text-law-red">*</span>
+                <input name="customer-phone" type="tel" autocomplete="tel" required class="mt-1.5 w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:border-law-red focus:outline-none focus:ring-2 focus:ring-red-100">
+              </label>
+              <label class="block text-sm font-medium text-gray-700">
+                Ville <span class="text-law-red">*</span>
+                <input name="customer-city" type="text" autocomplete="address-level2" required class="mt-1.5 w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:border-law-red focus:outline-none focus:ring-2 focus:ring-red-100">
+              </label>
+              <label class="block text-sm font-medium text-gray-700">
+                Adresse de livraison <span class="text-law-red">*</span>
+                <input name="customer-address" type="text" autocomplete="street-address" required class="mt-1.5 w-full rounded-lg border border-gray-300 px-3 py-3 text-base focus:border-law-red focus:outline-none focus:ring-2 focus:ring-red-100">
+              </label>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-gray-50 p-4">
+            <p class="font-semibold text-gray-900">🚚 Livraison : À domicile</p>
+            <p class="mt-1 text-sm font-semibold text-law-green">💵 Paiement à la livraison</p>
+            <p class="mt-1 text-sm text-gray-500">Vous paierez votre commande directement à la réception.</p>
+          </div>
+
+          <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+            <button type="button" onclick="closeCheckout()" class="rounded-lg border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50">Annuler</button>
+            <button type="submit" class="rounded-lg bg-law-red px-5 py-3 font-bold text-white hover:bg-law-red-dark">Voir le récapitulatif</button>
+          </div>
+        </form>
+
+        <div id="checkout-review-step" class="hidden">
+          <h3 class="mb-3 text-lg font-bold text-gray-900">🛍️ Votre commande</h3>
+          <div id="order-summary-items" class="mb-4 space-y-3"></div>
+          <div class="mb-5 flex justify-between border-t border-gray-200 pt-4 text-lg font-bold">
+            <span>Total</span>
+            <span id="order-summary-total" class="text-law-red"></span>
+          </div>
+
+          <h3 class="mb-2 text-lg font-bold text-gray-900">👤 Informations de livraison</h3>
+          <div id="order-summary-customer" class="mb-4 space-y-1 rounded-xl bg-gray-50 p-4"></div>
+          <p class="text-sm text-gray-700">🚚 Livraison : <strong>À domicile</strong></p>
+          <p class="mt-1 text-sm text-law-green">💵 Paiement : <strong>À la livraison</strong></p>
+          <p class="mt-3 text-sm text-gray-500">Vous paierez à la réception. Lawpiking vous contactera pour confirmer la livraison.</p>
+
+          <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            <button type="button" onclick="backToCheckoutForm()" class="rounded-lg border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50">Modifier mes informations</button>
+            <button type="button" onclick="confirmOrder()" class="rounded-lg bg-law-green px-5 py-3 font-bold text-white hover:bg-green-700">✅ Confirmer la commande</button>
+          </div>
+        </div>
+
+        <div id="checkout-success-step" class="hidden py-4 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-2xl text-law-green">✓</div>
+          <h3 class="text-xl font-bold text-gray-900">Votre commande a été préparée.</h3>
+          <p class="mt-3 text-gray-600">WhatsApp va s’ouvrir pour envoyer votre commande à Lawpiking.</p>
+          <p class="mt-2 font-semibold text-law-green">💵 Paiement à la livraison.</p>
+          <p class="mt-2 text-sm text-gray-500">Lawpiking vous contactera pour confirmer la livraison.</p>
+          <button type="button" onclick="closeCheckout()" class="mt-6 w-full rounded-lg bg-gray-900 px-5 py-3 font-bold text-white hover:bg-gray-800 sm:w-auto">Terminer</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl relative" onclick="event.stopPropagation()">
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
+        <iconify-icon icon="lucide:x" width="20"></iconify-icon>
+      </button>
+      <div id="modal-content" class="grid md:grid-cols-2">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] hidden">
+    <div class="bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]">
+      <div class="w-8 h-8 bg-law-green rounded-full flex items-center justify-center shrink-0">
+        <iconify-icon icon="lucide:check" width="16"></iconify-icon>
+      </div>
+      <span id="toast-msg" class="text-sm font-medium"></span>
+    </div>
+  </div>
+
+          <script src="JS/scripts.js"></script>
+</body>
+</html>
