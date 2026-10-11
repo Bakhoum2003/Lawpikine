@@ -585,6 +585,12 @@
     renderProducts();
     updateCartUI();
 
+    const floatingWhatsAppLink = document.getElementById('whatsapp-float');
+    if (floatingWhatsAppLink) {
+      const message = "Bonjour, je vous contacte depuis le site LAWPIKING. J'aimerais avoir plus d'informations sur vos produits.";
+      floatingWhatsAppLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
     // Close modal on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
  
