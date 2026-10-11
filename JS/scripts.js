@@ -573,14 +573,6 @@
       document.getElementById('mobile-menu').classList.toggle('hidden');
     }
 
-    // ============ FORMS ============
-    function handleNewsletter(e) {
-      e.preventDefault();
-      document.getElementById('newsletter-msg').classList.remove('hidden');
-      e.target.reset();
-      setTimeout(() => document.getElementById('newsletter-msg').classList.add('hidden'), 4000);
-    }
-
     // ============ TOAST ============
     function showToast(msg) {
       const toast = document.getElementById('toast');

@@ -396,121 +396,103 @@
     </div>
   </section>
 
-  <!-- NEWSLETTER / CONTACT -->
-  <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12">
-        <!-- Newsletter -->
-        <div class="bg-law-red text-white p-10 rounded-2xl relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-          <div class="relative z-10">
-            <h3 class="font-display text-4xl tracking-wide mb-3">RESTE CONNECTÉ</h3>
-            <p class="text-white/80 mb-8 text-sm">Reçois les drops avant tout le monde. Promo de bienvenue -15% sur ta première commande.</p>
-            <form onsubmit="handleNewsletter(event)" class="flex flex-col gap-3">
-              <input type="email" required placeholder="ton@email.com" class="bg-white/10 border border-white/30 text-white placeholder-white/50 px-5 py-4 rounded-none focus:outline-none focus:border-white focus:bg-white/20 transition-all">
-              <button type="submit" class="bg-white text-law-red font-bold text-sm tracking-widest uppercase py-4 hover:bg-gray-100 transition-colors">S'inscrire</button>
-            </form>
-            <p id="newsletter-msg" class="text-white text-sm mt-4 hidden bg-white/20 p-3 rounded">Bienvenue dans la famille ! ✦</p>
-          </div>
-        </div>
+  <!-- CONTACT -->
+  <section id="contact" class="bg-[#FFFBF5] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="mb-4 inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-law-red">
+          <span class="h-px w-7 bg-law-red"></span>
+          NOUS SOMMES À VOTRE ÉCOUTE
+          <span class="h-px w-7 bg-law-red"></span>
+        </p>
+        <h2 class="font-display text-4xl leading-tight tracking-wide text-slate-900 sm:text-5xl">Parlons de votre prochaine commande.</h2>
+        <p class="mx-auto mt-5 max-w-xl text-sm leading-7 text-gray-600 sm:text-base">Une question sur nos T-shirts, les tailles ou votre commande ? Contactez-nous, nous serons ravis de vous aider.</p>
+      </div>
 
-        <!-- Contact Info -->
-        <div class="border-2 border-gray-200 p-10 rounded-2xl">
-          <h3 class="font-display text-4xl tracking-wide mb-3 text-gray-900">CONTACT</h3>
-          <p class="text-gray-500 mb-8 text-sm">Une question ? Besoin d'un conseil taille ? On répond sous 24h.</p>
-          
-          <div class="space-y-6">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center shrink-0">
-                <iconify-icon icon="lucide:mail" width="18" class="text-law-red"></iconify-icon>
-              </div>
-              <div>
-                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Email</p>
-                <p class="text-sm font-medium">contact@lawpiking.fr</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center shrink-0">
-                <iconify-icon icon="lucide:message-circle" width="18" class="text-law-green"></iconify-icon>
-              </div>
-              <div>
-                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Instagram DM</p>
-                <p class="text-sm font-medium">@lawpiking.official</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
-                <iconify-icon icon="lucide:clock" width="18" class="text-gray-600"></iconify-icon>
-              </div>
-              <div>
-                <p class="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-1">Réponse</p>
-                <p class="text-sm font-medium">Sous 24h — Lun-Sam</p>
-              </div>
-            </div>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="mailto:contact@lawpiking.fr" class="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-md">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-red-50 text-law-red transition-colors group-hover:bg-law-red group-hover:text-white">
+            <iconify-icon icon="lucide:mail" width="20"></iconify-icon>
           </div>
-          
-          <div class="flex gap-3 mt-8">
-            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
-              <iconify-icon icon="lucide:instagram" width="18"></iconify-icon>
-            </a>
-            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
-              <iconify-icon icon="lucide:twitter" width="18"></iconify-icon>
-            </a>
-            <a href="#" class="w-11 h-11 bg-gray-900 text-white flex items-center justify-center hover:bg-law-red transition-colors rounded-lg">
-              <iconify-icon icon="lucide:facebook" width="18"></iconify-icon>
-            </a>
+          <h3 class="font-semibold text-slate-900">E-mail</h3>
+          <p class="mt-2 break-all text-sm text-gray-600">contact@lawpiking.fr</p>
+        </a>
+
+        <a href="https://www.instagram.com/lawpiking.official/" target="_blank" rel="noopener noreferrer" class="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-md">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-red-50 text-law-red transition-colors group-hover:bg-law-red group-hover:text-white">
+            <iconify-icon icon="lucide:instagram" width="20"></iconify-icon>
           </div>
+          <h3 class="font-semibold text-slate-900">Instagram</h3>
+          <p class="mt-2 text-sm text-gray-600">@lawpiking.official</p>
+        </a>
+
+        <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-red-200 hover:shadow-md sm:col-span-2 lg:col-span-1">
+          <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-red-50 text-law-red">
+            <iconify-icon icon="lucide:clock" width="20"></iconify-icon>
+          </div>
+          <h3 class="font-semibold text-slate-900">Disponibilité</h3>
+          <p class="mt-2 text-sm text-gray-600">Sous 24h — Lun-Sam</p>
         </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="https://wa.me/221705558382" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-slate-900 px-7 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-law-red focus:outline-none focus:ring-2 focus:ring-law-red focus:ring-offset-2">
+          <iconify-icon icon="lucide:message-circle" width="18"></iconify-icon>
+          Nous contacter
+        </a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid md:grid-cols-4 gap-10 mb-12">
-        <div>
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 bg-law-red rounded-sm flex items-center justify-center">
-              <span class="text-white font-display text-lg">L</span>
-            </div>
-            <span class="font-display text-2xl tracking-widest">LAWPIKING</span>
-          </div>
-          <p class="text-gray-400 text-sm"><br>Qualité. Style. Authenticité.</p>
+  <footer class="bg-slate-950 px-4 py-14 text-white sm:px-6 sm:py-16 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid grid-cols-2 gap-x-8 gap-y-10 pb-10 sm:gap-x-12 lg:grid-cols-4 lg:gap-10">
+        <div class="col-span-2 max-w-sm lg:col-span-1">
+          <a href="#hero" class="mb-5 inline-flex items-center gap-2" aria-label="Lawpiking — Accueil">
+            <span class="flex h-9 w-9 items-center justify-center rounded-sm bg-law-red">
+              <span class="font-display text-xl text-white">L</span>
+            </span>
+            <span class="font-display text-2xl tracking-widest text-white">LAWPIKING</span>
+          </a>
+          <p class="text-sm font-medium text-slate-200">Qualité. Style. Authenticité.</p>
+          <p class="mt-3 text-sm leading-6 text-slate-400">Découvrez nos collections de T-shirts et affirmez votre style avec Lawpiking.</p>
         </div>
-        <div>
-          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Shop</p>
-          <div class="flex flex-col gap-2">
-            <a href="#collection" class="text-sm text-gray-400 hover:text-law-red transition-colors">Collection</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Guide Tailles</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Livraison</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Retours</a>
+
+        <nav aria-label="Boutique">
+          <h2 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-200">Boutique</h2>
+          <div class="flex flex-col">
+            <a href="#collection" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Collection</a>
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Guide des tailles</a>
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Livraison</a>
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Retours</a>
           </div>
-        </div>
-        <div>
-          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Marque</p>
-          <div class="flex flex-col gap-2">
-            <a href="#about" class="text-sm text-gray-400 hover:text-law-red transition-colors">Notre Histoire</a>
-            <!-- <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Durabilité</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Presse</a> -->
-            <a href="#contact" class="text-sm text-gray-400 hover:text-law-red transition-colors">Contact</a>
+        </nav>
+
+        <nav aria-label="Lawpiking">
+          <h2 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-200">Lawpiking</h2>
+          <div class="flex flex-col">
+            <a href="#about" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Notre histoire</a>
+            <a href="#contact" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Contact</a>
           </div>
-        </div>
-        <div>
-          <p class="text-[10px] font-bold tracking-widest uppercase text-gray-500 mb-4">Légal</p>
-          <div class="flex flex-col gap-2">
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">CGV</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Mentions Légales</a>
-            <a href="#" class="text-sm text-gray-400 hover:text-law-red transition-colors">Politique Confidentialité</a>
+        </nav>
+
+        <nav aria-label="Informations légales">
+          <h2 class="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-200">Informations légales</h2>
+          <div class="flex flex-col">
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">CGV</a>
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Mentions légales</a>
+            <a href="#" class="flex min-h-10 items-center text-sm text-slate-400 transition-colors duration-200 hover:text-white focus:text-white">Politique de confidentialité</a>
           </div>
-        </div>
+        </nav>
       </div>
-      
-      <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-gray-500 text-xs">© 2026 LAWPIKING. Tous droits réservés.</p>
-        <!-- <p class="text-gray-500 text-xs flex items-center gap-2">
-          Fabriqué avec <span class="text-law-red">♥</span> en France
-        </p> -->
+
+      <div class="flex flex-col items-center justify-between gap-3 border-t border-slate-800 pt-6 sm:flex-row">
+        <p class="text-center text-xs text-slate-500 sm:text-left">© 2026 LAWPIKING. Tous droits réservés.</p>
+        <p class="text-xs text-slate-400">
+          Conçu par
+          <a href="https://wa.me/221705558382" target="_blank" rel="noopener noreferrer" class="font-medium text-slate-200 transition-colors duration-200 hover:text-law-red focus:text-law-red">Bakhoum_Dev</a>
+        </p>
       </div>
     </div>
   </footer>
