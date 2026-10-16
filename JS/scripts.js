@@ -1,5 +1,5 @@
 
-    const WHATSAPP_NUMBER = '221705558382';  
+    const WHATSAPP_NUMBER = '221776771009';  
 
     // ============ DATA PRODUITS ============
     const products = [
