@@ -6,18 +6,20 @@
       {
         id: 1,
         name: "VERT MENTHE",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "pastel",
         desc: "Le frais, le léger, le printanier. Parfait pour l'été et les journées ensoleillées. Couleur menthe douce qui apaise le regard.",
         img: "images/T-shirt_vert.jpeg",
         bgColor: "from-emerald-100 to-teal-100",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         badge: null
       },
       {
         id: 2,
         name: "VERT FONCÉ",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "dark",
         desc: "Profond, mystérieux, élégance naturelle. Une teinte intemporelle qui va avec tout et met en valeur.",
         img: "images/T-shirt_vertFoncé.jpeg",
@@ -28,7 +30,8 @@
       {
         id: 3,
         name: "GRIS CHINÉ",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "pastel",
         desc: "Le classique indémodable. Subtil et versatile, il se porte tous les jours sans jamais faire faux bond.",
         img: "images/T-shirt_gris.jpeg",
@@ -39,18 +42,20 @@
       {
         id: 4,
         name: "BLEU ROYAL",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "dark",
         desc: "Un bleu profond et lumineux, facile à associer et idéal pour affirmer son style.",
         img: "images/T-shirt_Bleu.jpeg",
         bgColor: "from-blue-900 to-indigo-900",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         badge: "Nouveau"
       },
       {
         id: 5,
         name: "NOIR INTENSE",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "dark",
         desc: "L'essentiel absolu. Sans concession, sans compromis. Le noir qui fait loi.",
         img: "images/T-shirt_noir.jpeg",
@@ -61,18 +66,20 @@
       {
         id: 6,
         name: "ROUGE CARDINAL",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "vibrant",
         desc: "Le feu, la passion, l'audace. Pour ceux qui osent se démarquer et affirmer leur style.",
         img: "images/T-shirt_rouge.jpeg",
         bgColor: "from-red-600 to-red-700",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         badge: "Limité"
       },
       {
         id: 7,
         name: "MARRON",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "dark",
         desc: "Une teinte marron chaleureuse et naturelle, facile à porter au quotidien.",
         img: "images/T-shirt_maron.jpeg",
@@ -83,28 +90,31 @@
       {
         id: 8,
         name: "ORANGE",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "vibrant",
         desc: "Une couleur orange lumineuse pour apporter une touche d'énergie à ta tenue.",
         img: "images/T-shirt_orange.jpeg",
         bgColor: "from-orange-100 to-amber-200",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         badge: null
       },
       {
         id: 9,
         name: "JAUNE",
-        price: 12000,
+        price: 10000,
+        productType: "tshirts",
         category: "vibrant",
         desc: "Une couleur jaune lumineuse et pleine d'énergie pour illuminer ta tenue.",
         img: "images/T-shirt_jaune.jpeg",
         bgColor: "from-yellow-200 to-amber-300",
-        sizes: ["S", "M", "L", "XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         badge: "Nouveau"
       }
     ];
 
     const CART_STORAGE_KEY = 'lawpikingCart';
+    const FAVORITES_STORAGE_KEY = 'lawpikingFavorites';
 
     function loadCart() {
       try {
@@ -150,8 +160,32 @@
     }
 
     let cart = loadCart();
-    let currentFilter = 'all';
+    let favorites = loadFavorites();
+    let currentCategory = 'all';
     let currentSearch = '';
+
+    function loadFavorites() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY) || '[]');
+        if (!Array.isArray(saved)) throw new TypeError('Les favoris enregistrés doivent être une liste.');
+        return [...new Set(saved.map(Number))].filter(id => products.some(product => product.id === id));
+      } catch (error) {
+        console.error('Impossible de charger les favoris depuis localStorage.', error);
+        return [];
+      }
+    }
+
+    function saveFavorites() {
+      try {
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
+        updateFavoritesUI();
+        return true;
+      } catch (error) {
+        console.error('Impossible d’enregistrer les favoris dans localStorage.', error);
+        showToast('Impossible d’enregistrer les favoris sur cet appareil.');
+        return false;
+      }
+    }
 
     function formatPrice(amount) {
       return `${new Intl.NumberFormat('fr-FR').format(amount)} F`;
@@ -164,50 +198,73 @@
         .toLocaleLowerCase('fr');
     }
 
+    function isFavorite(id) {
+      return favorites.includes(id);
+    }
+
+    function toggleFavorite(id) {
+      favorites = isFavorite(id) ? favorites.filter(favoriteId => favoriteId !== id) : [...favorites, id];
+      if (saveFavorites()) showToast(isFavorite(id) ? 'Ajouté aux favoris !' : 'Retiré des favoris.');
+    }
+
+    function productCard(product, index) {
+      const favorite = isFavorite(product.id);
+      return `
+        <article class="product-card group cursor-pointer slide-in" style="animation-delay: ${index * 0.06}s" onclick="openModal(${product.id})">
+          <div class="relative mb-3 aspect-square overflow-hidden rounded-xl bg-gradient-to-br ${product.bgColor}">
+            <img src="${product.img}" alt="${product.name}" class="product-img h-full w-full object-contain p-5 sm:p-6 transition-transform duration-500 drop-shadow-xl">
+            <button type="button" onclick="event.stopPropagation(); toggleFavorite(${product.id})" aria-label="${favorite ? 'Retirer' : 'Ajouter'} ${product.name} ${favorite ? 'des favoris' : 'aux favoris'}" aria-pressed="${favorite}" class="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-sm transition hover:scale-110 hover:text-law-red focus:outline-none focus:ring-2 focus:ring-law-red ${favorite ? 'text-law-red' : ''}">
+              <iconify-icon icon="${favorite ? 'lucide:heart' : 'lucide:heart'}" width="16" ${favorite ? 'style="fill: currentColor"' : ''} aria-hidden="true"></iconify-icon>
+            </button>
+            <div class="product-overlay absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300">
+              <span class="bg-white px-4 py-2 text-[10px] font-bold tracking-widest uppercase text-gray-900">Voir détails</span>
+            </div>
+          </div>
+          <div class="px-1">
+            <div class="mb-1 flex items-start justify-between gap-2">
+              <h3 class="font-display text-xl tracking-wide uppercase text-gray-900 transition-colors group-hover:text-law-red">${product.name}</h3>
+              <span class="shrink-0 font-display text-xl text-law-red">${formatPrice(product.price)}</span>
+            </div>
+            <p class="mb-2 line-clamp-2 text-xs text-gray-400">${product.desc}</p>
+            <div class="flex gap-1.5">${product.sizes.map(size => `<span class="rounded bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-400">${size}</span>`).join('')}</div>
+          </div>
+        </article>`;
+    }
+
+    const categoryLabels = {
+      all: 'TOUS LES PRODUITS',
+      tshirts: 'LES T-SHIRTS',
+      pulls: 'LES PULLS',
+      bonnets: 'LES BONNETS',
+    };
+
+    function productsForCurrentCategory() {
+      return currentCategory === 'all'
+        ? products
+        : products.filter(product => product.productType === currentCategory);
+    }
+
     // ============ RENDU PRODUITS ============
-    function renderProducts(filter = 'all') {
+    function renderProducts() {
       const grid = document.getElementById('products-grid');
       const query = normalizeSearchText(currentSearch.trim());
-      const filtered = products.filter(product => {
-        const matchesFilter = filter === 'all' || product.category === filter;
+      const filtered = productsForCurrentCategory().filter(product => {
         const searchableText = normalizeSearchText(
           ['t-shirt', ...Object.values(product).flat(Infinity)].join(' ')
         );
-        return matchesFilter && (!query || searchableText.includes(query));
+        return !query || searchableText.includes(query);
       });
-      
-      grid.innerHTML = filtered.map((p, i) => `
-        <article class="product-card group cursor-pointer slide-in" style="animation-delay: ${i * 0.08}s" onclick="openModal(${p.id})">
-          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br ${p.bgColor} aspect-square mb-4">
-            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain p-8 transition-transform duration-500 drop-shadow-xl">
-            
-            ${p.badge ? `<div class="absolute top-4 left-4 bg-${p.category === 'vibrant' || p.badge === 'Limité' ? 'law-red' : 'law-green'} text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full">${p.badge}</div>` : ''}
-            
-            <div class="product-overlay absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 transition-opacity duration-300">
-              <span class="bg-white text-gray-900 font-bold text-xs tracking-widest uppercase px-6 py-3 transform scale-95 group-hover:scale-100 transition-transform">Voir détails</span>
-            </div>
-          </div>
-          
-          <div class="px-1">
-            <div class="flex justify-between items-start mb-1">
-              <h3 class="font-display text-2xl tracking-wide uppercase text-gray-900 group-hover:text-law-red transition-colors">${p.name}</h3>
-              <span class="font-display text-2xl text-law-red">${formatPrice(p.price)}</span>
-            </div>
-            <p class="text-gray-400 text-xs line-clamp-2 mb-3">${p.desc}</p>
-            <div class="flex gap-1.5">
-              ${p.sizes.map(s => `<span class="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded font-medium">${s}</span>`).join('')}
-            </div>
-          </div>
-        </article>
-      `).join('');
+      grid.innerHTML = filtered.map(productCard).join('');
       document.getElementById('no-products-found').classList.toggle('hidden', filtered.length > 0);
     }
 
-    // ============ FILTRES ============
-    function filterProducts(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.dataset.filter === filter) {
+    function selectCategory(category) {
+      currentCategory = category;
+      currentSearch = '';
+      document.getElementById('product-search').value = '';
+      document.getElementById('collection-title').textContent = categoryLabels[category] || categoryLabels.all;
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        if (btn.dataset.category === category) {
           btn.classList.add('bg-gray-900', 'text-white');
           btn.classList.remove('bg-gray-100', 'text-gray-600');
         } else {
@@ -215,12 +272,49 @@
           btn.classList.add('bg-gray-100', 'text-gray-600');
         }
       });
-      renderProducts(filter);
+      const hasAvailableProducts = productsForCurrentCategory().length > 0;
+      document.getElementById('products-grid').classList.toggle('hidden', !hasAvailableProducts);
+      document.getElementById('no-products-found').classList.toggle('hidden', true);
+      document.getElementById('category-coming-soon')?.remove();
+      if (!hasAvailableProducts) {
+        document.getElementById('products-grid').insertAdjacentHTML('afterend', `<div id="category-coming-soon" class="py-16 text-center"><div class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-law-red"><iconify-icon icon="lucide:clock-3" width="28" aria-hidden="true"></iconify-icon></div><h3 class="font-display text-4xl tracking-wide text-gray-900">Bientôt disponible</h3><p class="mx-auto mt-3 max-w-md text-sm leading-6 text-gray-500">Notre collection de ${category === 'pulls' ? 'pulls' : 'bonnets'} arrive bientôt. Restez connectés !</p></div>`);
+      } else {
+        renderProducts();
+      }
     }
 
     function searchProducts(value) {
       currentSearch = value;
-      renderProducts(currentFilter);
+      renderProducts();
+    }
+
+    function renderFavorites() {
+      const favoriteProducts = products.filter(product => isFavorite(product.id));
+      document.getElementById('favorites-grid').innerHTML = favoriteProducts.map(productCard).join('');
+      document.getElementById('favorites-empty').classList.toggle('hidden', favoriteProducts.length > 0);
+    }
+
+    function updateFavoritesUI() {
+      const count = document.getElementById('favorites-count');
+      count.textContent = favorites.length;
+      count.classList.toggle('hidden', favorites.length === 0);
+      renderProducts();
+      renderFavorites();
+    }
+
+    function updateViewFromHash() {
+      const view = window.location.hash.slice(1);
+      const main = document.getElementById('site-content');
+      const favoritesPage = document.getElementById('favorites-page');
+      const accountPage = document.getElementById('account-page');
+      const specialView = view === 'favorites' || view === 'account';
+      [...main.children].forEach(section => {
+        if (section !== favoritesPage && section !== accountPage) section.classList.toggle('hidden', specialView);
+      });
+      favoritesPage.classList.toggle('hidden', view !== 'favorites');
+      accountPage.classList.toggle('hidden', view !== 'account');
+      if (view === 'favorites') renderFavorites();
+      if (specialView) window.scrollTo(0, 0);
     }
 
     // ============ MODAL ============
@@ -231,7 +325,6 @@
           <img src="${p.img}" alt="${p.name}" class="max-h-96 object-contain drop-shadow-2xl">
         </div>
         <div class="p-8 sm:p-10 flex flex-col justify-center">
-          ${p.badge ? `<span class="inline-block self-start bg-${p.badge === 'Limité' ? 'law-red' : 'law-green'} text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded mb-4">${p.badge}</span>` : ''}
           <h2 class="font-display text-4xl sm:text-5xl tracking-wide text-gray-900 mb-2">${p.name}</h2>
           <p class="font-display text-3xl text-law-red mb-6">${formatPrice(p.price)}</p>
           <p class="text-gray-600 leading-relaxed mb-8">${p.desc}</p>
@@ -584,6 +677,15 @@
     // ============ INIT ============
     renderProducts();
     updateCartUI();
+    updateFavoritesUI();
+    updateViewFromHash();
+    window.addEventListener('hashchange', updateViewFromHash);
+    window.addEventListener('storage', event => {
+      if (event.key === FAVORITES_STORAGE_KEY) {
+        favorites = loadFavorites();
+        updateFavoritesUI();
+      }
+    });
 
     const floatingWhatsAppLink = document.getElementById('whatsapp-float');
     if (floatingWhatsAppLink) {
@@ -593,4 +695,3 @@
 
     // Close modal on escape key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
- 
