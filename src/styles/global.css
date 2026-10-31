@@ -48,11 +48,6 @@
 .product-card:hover .product-overlay {
   opacity: 1;
 }
-.size-btn.active {
-  background: #dc2626;
-  color: #fff;
-  border-color: #dc2626;
-}
 .product-spinner {
   width: 48px;
   height: 48px;

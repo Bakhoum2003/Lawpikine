@@ -6,6 +6,18 @@ import CheckoutModal from "./components/cart/CheckoutModal";
 import StorePage from "./pages/public/StorePage";
 import ProductDetailPage from "./pages/public/ProductDetailPage";
 import { FavoritesPage, AccountPage, AdminPage } from "./pages/public/SpecialPages";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import AdminLayout from "./components/admin/AdminLayout";
+import ProductsAdmin from "./pages/admin/products/ProductsAdmin";
+import AddProduct from "./pages/admin/products/AddProduct";
+import EditProduct from "./pages/admin/products/EditProduct";
+import OrdersAdmin from "./pages/admin/OrdersAdmin";
+import StockAdmin from "./pages/admin/StockAdmin";
+import PromotionsAdmin from "./pages/admin/PromotionsAdmin";
+import ReviewsAdmin from "./pages/admin/ReviewsAdmin";
+import CategoriesAdmin from "./pages/admin/CategoriesAdmin";
+import SettingsAdmin from "./pages/admin/SettingsAdmin";
 import { ContactFooter, SiteFooter } from "./components/layout/ContentSections";
 import { getProducts } from "./services/productService";
 import { useLocalStorage } from "./hooks/useLocalStorage";
@@ -49,22 +61,33 @@ export default function App() {
   }, []);
   const storeProps = { favorites, onFavorite: toggleFavorite, onFeedback: () => setFeedbackOpen(true), onOpenProduct: openProduct };
   return <div className="flex min-h-screen flex-col">
-    <Header favorites={favorites.length} cartCount={count} onCart={() => setDrawer(true)} showInfoBar={!isAdminPage} />
+    {!isAdminPage && <Header favorites={favorites.length} cartCount={count} onCart={() => setDrawer(true)} showInfoBar={!isAdminPage} />}
     <ScrollToProductTop pathname={location.pathname} />
     <main className="flex-1"><Routes>
       <Route path="/" element={<StorePage {...storeProps} />} />
       <Route path="/produit/:slug" element={<ProductDetailPage favorites={favorites} onFavorite={toggleFavorite} onAdd={add} onMessage={show} onReady={() => setProductLoading(false)} />} />
       <Route path="/favoris" element={<FavoritesPage products={products} favorites={favorites} onFavorite={toggleFavorite} onOpenProduct={openProduct} />} />
       <Route path="/compte" element={<AccountPage />} />
-      <Route path="/admin/*" element={<AdminPage />} />
+      <Route path="/admin/login" element={<Login />} />
+      <Route path="/admin" element={<AdminLayout><Dashboard /></AdminLayout>} />
+      <Route path="/admin/produits" element={<AdminLayout><ProductsAdmin /></AdminLayout>} />
+      <Route path="/admin/produits/nouveau" element={<AdminLayout><AddProduct /></AdminLayout>} />
+      <Route path="/admin/produits/:id/modifier" element={<AdminLayout><EditProduct /></AdminLayout>} />
+      <Route path="/admin/commandes" element={<AdminLayout><OrdersAdmin /></AdminLayout>} />
+      <Route path="/admin/stock" element={<AdminLayout><StockAdmin /></AdminLayout>} />
+      <Route path="/admin/promotions" element={<AdminLayout><PromotionsAdmin /></AdminLayout>} />
+      <Route path="/admin/avis" element={<AdminLayout><ReviewsAdmin /></AdminLayout>} />
+      <Route path="/admin/categories" element={<AdminLayout><CategoriesAdmin /></AdminLayout>} />
+      <Route path="/admin/parametres" element={<AdminLayout><SettingsAdmin /></AdminLayout>} />
+      <Route path="/admin/*" element={<AdminLayout><AdminPage /></AdminLayout>} />
       <Route path="*" element={<StorePage {...storeProps} />} />
     </Routes></main>
     {isPublic && (isProductPage ? <SiteFooter /> : <ContactFooter onFeedback={() => setFeedbackOpen(true)} />)}
-    <CartDrawer open={drawer} items={cart} onClose={() => setDrawer(false)} onQuantity={update} onRemove={remove} onCheckout={() => { setDrawer(false); setCheckout(true); }} />
+    {!isAdminPage && <CartDrawer open={drawer} items={cart} onClose={() => setDrawer(false)} onQuantity={update} onRemove={remove} onCheckout={() => { setDrawer(false); setCheckout(true); }} />}
     {checkout && <CheckoutModal items={cart} onClose={() => setCheckout(false)} onComplete={() => { setCart([]); setCheckout(false); show("Votre commande a été préparée."); }} />}
     {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
     {productLoading && <ProductSpinner />}
-    <a href="https://wa.me/221776771009?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20LAWPIKING." target="_blank" rel="noreferrer" className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"><Icon name="simple-icons:whatsapp" width={26} /></a>
+    {!isAdminPage && <a href="https://wa.me/221776771009?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20LAWPIKING." target="_blank" rel="noreferrer" className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"><Icon name="simple-icons:whatsapp" width={26} /></a>}
     {toast && <div role="status" className="fixed bottom-6 left-1/2 z-[70] flex min-w-[300px] -translate-x-1/2 items-center gap-3 rounded-xl bg-gray-900 px-6 py-4 text-white shadow-2xl"><div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-law-green"><Icon name="lucide:check" width={16} /></div><span className="text-sm font-medium">{toast}</span></div>}
   </div>;
 }
